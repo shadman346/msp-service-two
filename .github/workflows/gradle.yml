@@ -30,6 +30,7 @@ jobs:
         arguments: bootjar
     - name: cache jar file
       id: cache-jar
+      uses: actions/cache@v3
       with:
         path: build/libs
         key: ${{runner.os}}-buildJar-${{('version/prod.txt')}}
