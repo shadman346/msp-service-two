@@ -28,8 +28,16 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: bootjar
-    - uses: actions/upload-artifact@v3
+#    - uses: actions/upload-artifact@v3
+#      with:
+#        name: Package
+#        path: build/libs
+    - name: cache jar file
+      id: cache-jar
       with:
-        name: Package
         path: build/libs
-    
+        key: ${{runner.os}}-buildJar-${{('version/prod.txt')}}
+
+    - if: ${{ steps.cache-jar.outputs.cache-hit  != 'true' }}
+      name: caching the jar file
+      continue-on-error: true
