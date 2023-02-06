@@ -33,7 +33,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: build/libs
-        key: ${{runner.os}}-buildJar-${{('version/prod.txt')}}
+        key: ${{runner.os}}-buildJar-${{('**/version/prod.txt')}}
 
 #     - if: ${{ steps.cache-jar.outputs.cache-hit  != 'true' }}
 #       name: caching the jar file
