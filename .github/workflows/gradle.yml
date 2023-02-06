@@ -9,7 +9,16 @@ name: Java CI with Gradle
 
 on:
   workflow_dispatch:
-  
+    inputs:
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
+      version:
+        description: 'release version'
+        required: true
+        type: string
+
 permissions:
   contents: read
 
@@ -33,7 +42,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: build/libs
-        key: ${{runner.os}}-buildJar-${{('**/version/prod.txt')}}
+        key: ${{runner.os}}-buildJar-${{inputs.environment}}-${{inputs.version}}
 
 #     - if: ${{ steps.cache-jar.outputs.cache-hit  != 'true' }}
 #       name: caching the jar file
