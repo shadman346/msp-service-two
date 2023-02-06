@@ -10,7 +10,8 @@ name: Java CI with Gradle
 on:
   workflow_dispatch:
   
-permissions: read-all|write-all
+permissions:
+  contents: read|write|none
 
 jobs:
   build:
