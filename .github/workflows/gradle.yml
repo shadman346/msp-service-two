@@ -30,24 +30,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-        with:
-          arguments: bootjar
-      - name: cache jar file
-        id: cache-jar
-        uses: actions/cache@v3
-        with:
-          path: build/libs
-          key: ${{runner.os}}-buildJar-${{inputs.environment}}-${{inputs.version}}
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+    - name: Validate Gradle wrapper
+      uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
+    - name: Build with Gradle
+      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      with:
+        arguments: bootjar
+    - name: cache jar file
+      id: cache-jar
+      uses: actions/cache@v3
+      with:
+        path: build/libs
+        key: ${{runner.os}}-buildJar-${{inputs.environment}}-${{inputs.version}}
 
-      - if: ${{ steps.cache-jar.outputs.cache-hit != 'true' }}
-        name: caching the jar file
-        continue-on-error: true
+    - if: ${{ steps.cache-jar.outputs.cache-hit != 'true' }}
+      name: caching the jar file
+      continue-on-error: true
